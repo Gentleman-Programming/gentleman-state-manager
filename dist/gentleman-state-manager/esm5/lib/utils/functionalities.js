@@ -1,0 +1,15 @@
+/**
+ * @desc checks if the condition is met and returns its value
+ * @param condition - the condition to check
+ * @param errorMessage - the error message to be shown if the condition is not met
+ * @return any
+ */
+export function checkIfConditionMet(condition, errorMessage) {
+    var conditionMet = condition();
+    if (!conditionMet) {
+        console.error(errorMessage);
+        throw Error(errorMessage);
+    }
+    return conditionMet;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoiZnVuY3Rpb25hbGl0aWVzLmpzIiwic291cmNlUm9vdCI6Im5nOi8vZ2VudGxlbWFuLXN0YXRlLW1hbmFnZXItbGliLyIsInNvdXJjZXMiOlsibGliL3V0aWxzL2Z1bmN0aW9uYWxpdGllcy50cyJdLCJuYW1lcyI6W10sIm1hcHBpbmdzIjoiQUFBQTs7Ozs7R0FLRztBQUNILE1BQU0sVUFBVSxtQkFBbUIsQ0FBQyxTQUFvQixFQUFFLFlBQW9CO0lBQzVFLElBQU0sWUFBWSxHQUFHLFNBQVMsRUFBRSxDQUFDO0lBQ2pDLElBQUksQ0FBQyxZQUFZLEVBQUU7UUFDakIsT0FBTyxDQUFDLEtBQUssQ0FBQyxZQUFZLENBQUMsQ0FBQztRQUM1QixNQUFNLEtBQUssQ0FBQyxZQUFZLENBQUMsQ0FBQztLQUMzQjtJQUNELE9BQU8sWUFBWSxDQUFDO0FBQ3RCLENBQUMiLCJzb3VyY2VzQ29udGVudCI6WyIvKipcbiAqIEBkZXNjIGNoZWNrcyBpZiB0aGUgY29uZGl0aW9uIGlzIG1ldCBhbmQgcmV0dXJucyBpdHMgdmFsdWVcbiAqIEBwYXJhbSBjb25kaXRpb24gLSB0aGUgY29uZGl0aW9uIHRvIGNoZWNrXG4gKiBAcGFyYW0gZXJyb3JNZXNzYWdlIC0gdGhlIGVycm9yIG1lc3NhZ2UgdG8gYmUgc2hvd24gaWYgdGhlIGNvbmRpdGlvbiBpcyBub3QgbWV0XG4gKiBAcmV0dXJuIGFueVxuICovXG5leHBvcnQgZnVuY3Rpb24gY2hlY2tJZkNvbmRpdGlvbk1ldChjb25kaXRpb246ICgpID0+IGFueSwgZXJyb3JNZXNzYWdlOiBzdHJpbmcpOiBhbnkge1xuICBjb25zdCBjb25kaXRpb25NZXQgPSBjb25kaXRpb24oKTtcbiAgaWYgKCFjb25kaXRpb25NZXQpIHtcbiAgICBjb25zb2xlLmVycm9yKGVycm9yTWVzc2FnZSk7XG4gICAgdGhyb3cgRXJyb3IoZXJyb3JNZXNzYWdlKTtcbiAgfVxuICByZXR1cm4gY29uZGl0aW9uTWV0O1xufVxuIl19
