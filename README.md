@@ -75,6 +75,7 @@ export class OverviewMetricComponent implements OnDestroy {
         console.log(gentlemanStateManager.getObservable('test').getStateSnapshot());
     }
 }
+````
 
 4- to lazy load more observables just do the same functionality as in the app module, but in the constructor of your lazy loaded one.
 

@@ -2,10 +2,6 @@
 
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
-## Build
-
-Run `ng build gentleman-state-manager-lib` to build the project. The build artifacts will be stored in the `dist/` directory.
-
 ## Description
 Hi everyone ! this is a super easy and comfortable way of using reactive programming to manage the state of your application.
 This library is based on Rxjs Behaviour Subject observables to manage the different states of your application using the concept of a single source of truth.
@@ -44,12 +40,12 @@ that passes trough the different entities of your Angular application.
 ````
 const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
     {
-        key: 'test',
+        key: 'yourObservableKey',
         state: {
-            testing: 'hola'
+            yourStateProperty: 'your property'
         },
         stateProperties: {
-            testing: 'testing'
+            YOURSTATEPROPERTY: 'yourStateProperty'
         }
     }
 ];
@@ -80,6 +76,34 @@ export class OverviewMetricComponent implements OnDestroy {
     }
 }
 ````
+
+4- to lazy load more observables just do the same functionality as in the app module, but in the constructor of your lazy loaded one.
+
+Example:
+````
+const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
+    {
+        key: 'yourLazyLoadedObservableKey',
+        state: {
+            yourLazyLoadedStateProperty: 'Your Lazy Loaded State Property'
+        },
+        stateProperties: {
+            YOURLAZYLOADEDSTATEPROPERTY: 'yourLazyLoadedStateProperty'
+        }
+    }
+];
+
+@NgModule({
+   ...
+})
+export class LazyLoadedModule {
+   constructor(gentlemanStateService: GentlemanStateService) {
+    sourceOfTruthInitiate.forEach(state => gentlemanStateService.createObservable(state.key, state.state, state.stateProperties));
+  }
+}
+
+````
+
 ## Api
 
 ### Array Of Observables Management :
@@ -103,17 +127,6 @@ getObservable
 * @return ObserverArrayItem
 */
   getObservable(key: string): GentlemanStateObject<any>
-```` 
-
-emitValue
-```` 
-/**
-* @desc it emits a new value into the selected observable using the provided key.
-* @param key: the key to be used to represent the observable item inside the array
-* @param data: the data to be emitted inside the selected observable
-* @return void
-*/
-  emitValue(key: string, data: any): void
 ```` 
 
 destroyObservable
