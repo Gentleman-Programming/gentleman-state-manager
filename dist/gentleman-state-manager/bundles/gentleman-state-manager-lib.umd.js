@@ -250,7 +250,7 @@
      */
     function checkIfConditionMet(condition, errorMessage) {
         var conditionMet = condition();
-        if (!conditionMet) {
+        if (!conditionMet.met) {
             console.error(errorMessage);
             throw Error(errorMessage);
         }
@@ -354,7 +354,7 @@
         GentlemanStateObject.prototype.checkIfPropertyExists = function (state, property) {
             var condition = function () {
                 var propertyValue = state[property];
-                return propertyValue || propertyValue !== undefined;
+                return { met: propertyValue !== undefined, value: propertyValue };
             };
             return checkIfConditionMet(function () { return condition(); }, 'Selected property not found ! check if the key is correct and exists');
         };
@@ -377,7 +377,7 @@
          */
         GentlemanStateService.checkIfFound = function (observableArrayItem) {
             var condition = function () {
-                return observableArrayItem;
+                return { met: !!observableArrayItem, value: observableArrayItem };
             };
             return checkIfConditionMet(function () { return condition(); }, 'Observable item not found ! check if the key is correct and exists');
         };

@@ -10,7 +10,7 @@ import { map } from 'rxjs/operators';
  */
 function checkIfConditionMet(condition, errorMessage) {
     const conditionMet = condition();
-    if (!conditionMet) {
+    if (!conditionMet.met) {
         console.error(errorMessage);
         throw Error(errorMessage);
     }
@@ -111,7 +111,7 @@ class GentlemanStateObject {
     checkIfPropertyExists(state, property) {
         const condition = () => {
             const propertyValue = state[property];
-            return propertyValue || propertyValue !== undefined;
+            return { met: propertyValue !== undefined, value: propertyValue };
         };
         return checkIfConditionMet(() => condition(), 'Selected property not found ! check if the key is correct and exists');
     }
@@ -132,7 +132,7 @@ class GentlemanStateService {
      */
     static checkIfFound(observableArrayItem) {
         const condition = () => {
-            return observableArrayItem;
+            return { met: !!observableArrayItem, value: observableArrayItem };
         };
         return checkIfConditionMet(() => condition(), 'Observable item not found ! check if the key is correct and exists');
     }

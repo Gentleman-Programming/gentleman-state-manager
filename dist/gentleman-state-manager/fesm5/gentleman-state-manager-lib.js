@@ -11,7 +11,7 @@ import { map } from 'rxjs/operators';
  */
 function checkIfConditionMet(condition, errorMessage) {
     var conditionMet = condition();
-    if (!conditionMet) {
+    if (!conditionMet.met) {
         console.error(errorMessage);
         throw Error(errorMessage);
     }
@@ -115,7 +115,7 @@ var GentlemanStateObject = /** @class */ (function () {
     GentlemanStateObject.prototype.checkIfPropertyExists = function (state, property) {
         var condition = function () {
             var propertyValue = state[property];
-            return propertyValue || propertyValue !== undefined;
+            return { met: propertyValue !== undefined, value: propertyValue };
         };
         return checkIfConditionMet(function () { return condition(); }, 'Selected property not found ! check if the key is correct and exists');
     };
@@ -138,7 +138,7 @@ var GentlemanStateService = /** @class */ (function () {
      */
     GentlemanStateService.checkIfFound = function (observableArrayItem) {
         var condition = function () {
-            return observableArrayItem;
+            return { met: !!observableArrayItem, value: observableArrayItem };
         };
         return checkIfConditionMet(function () { return condition(); }, 'Observable item not found ! check if the key is correct and exists');
     };
