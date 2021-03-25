@@ -1,6 +1,5 @@
 import { GentlemanStateObject, StateProperties } from '../models/public-api';
 import { SourceOfTruthInitiate } from '../models/source-of-truth';
-import * as i0 from "@angular/core";
 export declare class GentlemanStateService {
     private observerArray;
     constructor(sourceOfTruthKeys: SourceOfTruthInitiate[]);
@@ -37,6 +36,4 @@ export declare class GentlemanStateService {
      * @return void
      */
     destroyObservable(key: string): void;
-    static ɵfac: i0.ɵɵFactoryDef<GentlemanStateService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<GentlemanStateService>;
 }
