@@ -112,7 +112,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
   private checkIfPropertyExists(state: T, property: string): any {
     const condition = () => {
       const propertyValue = state[property];
-      return propertyValue || propertyValue !== undefined;
+      return {met: propertyValue !== undefined, value: propertyValue};
     };
     return checkIfConditionMet(() => condition(), 'Selected property not found ! check if the key is correct and exists');
   }

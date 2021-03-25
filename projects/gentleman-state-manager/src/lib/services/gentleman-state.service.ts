@@ -23,7 +23,7 @@ export class GentlemanStateService {
    */
   private static checkIfFound(observableArrayItem: ObserverArrayItem<any> | undefined): ObserverArrayItem<any> {
     const condition = () => {
-      return observableArrayItem;
+      return {met: !!observableArrayItem, value: observableArrayItem};
     };
     return checkIfConditionMet(() => condition(), 'Observable item not found ! check if the key is correct and exists');
   }
