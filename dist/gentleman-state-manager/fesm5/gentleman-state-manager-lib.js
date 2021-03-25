@@ -115,7 +115,7 @@ var GentlemanStateObject = /** @class */ (function () {
     GentlemanStateObject.prototype.checkIfPropertyExists = function (state, property) {
         var condition = function () {
             var propertyValue = state[property];
-            return propertyValue || propertyValue === null;
+            return propertyValue || propertyValue !== undefined;
         };
         return checkIfConditionMet(function () { return condition(); }, 'Selected property not found ! check if the key is correct and exists');
     };
