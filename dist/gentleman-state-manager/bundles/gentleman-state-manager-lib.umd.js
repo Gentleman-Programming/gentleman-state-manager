@@ -347,7 +347,7 @@
         };
         /**
          * @desc checks if the selected property exists inside the state
-         * @param state - the state of the entity
+         * @param state - the state of the observable, the object that represents what the observable is going to contain
          * @param property - the selected property
          * @return any
          */
@@ -372,7 +372,7 @@
         }
         /**
          * @desc it checks if the searched object exists, if not it throws an errors and stops the execution.
-         * @param observableArrayItem: ObserverArrayItem | undefined
+         * @param observableArrayItem - ObserverArrayItem | undefined
          * @return ObserverArrayItem
          */
         GentlemanStateService.checkIfFound = function (observableArrayItem) {
@@ -383,8 +383,9 @@
         };
         /**
          * @desc it creates and observable and adds it to the observable array.
-         * @param key: the key to be used to represent the observable item inside the array
-         * @param state: the state of the observable, the object that represents what the observable is going to contain
+         * @param key - the key to be used to represent the observable item inside the array
+         * @param state - the state of the observable, the object that represents what the observable is going to contain
+         * @param stateProperties - the properties of the state
          * @return void
          */
         GentlemanStateService.prototype.createObservable = function (key, state, stateProperties) {
@@ -393,7 +394,7 @@
         };
         /**
          * @desc it returns the selected observable using the provided key.
-         * @param key: the key to be used to represent the observable item inside the array
+         * @param key - the key to be used to represent the observable item inside the array
          * @return ObserverArrayItem
          */
         GentlemanStateService.prototype.getObservable = function (key) {
@@ -402,8 +403,8 @@
         };
         /**
          * @desc it emits a new value into the selected observable using the provided key.
-         * @param key: the key to be used to represent the observable item inside the array
-         * @param data: the data to be emitted inside the selected observable
+         * @param key - the key to be used to represent the observable item inside the array
+         * @param data - the data to be emitted inside the selected observable
          * @return void
          */
         GentlemanStateService.prototype.emitValue = function (key, data) {
@@ -412,7 +413,7 @@
         };
         /**
          * @desc it destroys an object from the observable array.
-         * @param key: the key to be used to represent the observable item inside the array
+         * @param key - the key to be used to represent the observable item inside the array
          * @return void
          */
         GentlemanStateService.prototype.destroyObservable = function (key) {
