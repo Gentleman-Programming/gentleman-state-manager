@@ -1,5 +1,4 @@
-import { __decorate, __param } from 'tslib';
-import { Inject, ɵɵdefineInjectable, ɵɵinject, Injectable, NgModule } from '@angular/core';
+import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -78,8 +77,9 @@ class GentlemanStateObject {
      */
     setObservableValues(value, property = null, emit = true) {
         this.setStateValues(value, property);
-        if (emit)
+        if (emit) {
             this.observableSubject.next(this.state);
+        }
     }
     /**
      * @desc sets the value for a certain property inside the state, doesn't triggers an async event
@@ -104,19 +104,20 @@ class GentlemanStateObject {
     }
     /**
      * @desc checks if the selected property exists inside the state
+     * @param state - the state of the entity
      * @param property - the selected property
      * @return any
      */
     checkIfPropertyExists(state, property) {
         const condition = () => {
-            return state[property];
+            const propertyValue = state[property];
+            return propertyValue || propertyValue === null;
         };
         return checkIfConditionMet(() => condition(), 'Selected property not found ! check if the key is correct and exists');
     }
 }
 
-var GentlemanStateService_1;
-let GentlemanStateService = GentlemanStateService_1 = class GentlemanStateService {
+class GentlemanStateService {
     constructor(sourceOfTruthKeys) {
         this.observerArray = [];
         sourceOfTruthKeys.forEach(k => {
@@ -151,7 +152,7 @@ let GentlemanStateService = GentlemanStateService_1 = class GentlemanStateServic
      * @return ObserverArrayItem
      */
     getObservable(key) {
-        const observableArrayItem = GentlemanStateService_1.checkIfFound(this.observerArray.find(obs => obs.key === key));
+        const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find(obs => obs.key === key));
         return observableArrayItem === null || observableArrayItem === void 0 ? void 0 : observableArrayItem.observable;
     }
     /**
@@ -161,7 +162,7 @@ let GentlemanStateService = GentlemanStateService_1 = class GentlemanStateServic
      * @return void
      */
     emitValue(key, data) {
-        const observableArrayItem = GentlemanStateService_1.checkIfFound(this.observerArray.find(obs => obs.key === key));
+        const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find(obs => obs.key === key));
         observableArrayItem === null || observableArrayItem === void 0 ? void 0 : observableArrayItem.observable.setObservableValues(data);
     }
     /**
@@ -170,38 +171,41 @@ let GentlemanStateService = GentlemanStateService_1 = class GentlemanStateServic
      * @return void
      */
     destroyObservable(key) {
-        const selectedObservable = GentlemanStateService_1.checkIfFound(this.observerArray.find(obs => obs.key === key));
+        const selectedObservable = GentlemanStateService.checkIfFound(this.observerArray.find(obs => obs.key === key));
         selectedObservable === null || selectedObservable === void 0 ? void 0 : selectedObservable.observable.unsubscribe();
         this.observerArray = this.observerArray.filter(obs => obs.key !== key);
     }
-};
-GentlemanStateService.ctorParameters = () => [
-    { type: Array, decorators: [{ type: Inject, args: ['sourceOfTruthKeys',] }] }
-];
-GentlemanStateService.ɵprov = ɵɵdefineInjectable({ factory: function GentlemanStateService_Factory() { return new GentlemanStateService(ɵɵinject("sourceOfTruthKeys")); }, token: GentlemanStateService, providedIn: "root" });
-GentlemanStateService = GentlemanStateService_1 = __decorate([
-    Injectable({
-        providedIn: 'root'
-    }),
-    __param(0, Inject('sourceOfTruthKeys'))
-], GentlemanStateService);
+}
+GentlemanStateService.ɵfac = function GentlemanStateService_Factory(t) { return new (t || GentlemanStateService)(ɵɵinject('sourceOfTruthKeys')); };
+GentlemanStateService.ɵprov = ɵɵdefineInjectable({ token: GentlemanStateService, factory: GentlemanStateService.ɵfac, providedIn: 'root' });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(GentlemanStateService, [{
+        type: Injectable,
+        args: [{
+                providedIn: 'root'
+            }]
+    }], function () { return [{ type: undefined, decorators: [{
+                type: Inject,
+                args: ['sourceOfTruthKeys']
+            }] }]; }, null); })();
 
-var GentlemanStateManagerModule_1;
-let GentlemanStateManagerModule = GentlemanStateManagerModule_1 = class GentlemanStateManagerModule {
+class GentlemanStateManagerModule {
     static forRoot(sourceOfTruthKeys) {
         return {
-            ngModule: GentlemanStateManagerModule_1,
+            ngModule: GentlemanStateManagerModule,
             providers: [GentlemanStateService, { provide: 'sourceOfTruthKeys', useValue: sourceOfTruthKeys }]
         };
     }
-};
-GentlemanStateManagerModule = GentlemanStateManagerModule_1 = __decorate([
-    NgModule({
-        declarations: [],
-        imports: [],
-        exports: []
-    })
-], GentlemanStateManagerModule);
+}
+GentlemanStateManagerModule.ɵmod = ɵɵdefineNgModule({ type: GentlemanStateManagerModule });
+GentlemanStateManagerModule.ɵinj = ɵɵdefineInjector({ factory: function GentlemanStateManagerModule_Factory(t) { return new (t || GentlemanStateManagerModule)(); }, imports: [[]] });
+/*@__PURE__*/ (function () { ɵsetClassMetadata(GentlemanStateManagerModule, [{
+        type: NgModule,
+        args: [{
+                declarations: [],
+                imports: [],
+                exports: []
+            }]
+    }], null, null); })();
 
 /*
  * Public API Surface of gentleman-state-manager

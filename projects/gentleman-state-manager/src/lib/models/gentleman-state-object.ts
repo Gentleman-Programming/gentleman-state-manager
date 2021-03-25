@@ -1,7 +1,7 @@
-import { BehaviorSubject, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { StateProperties, TypeWithKey } from './public-api';
-import { checkIfConditionMet } from '../utils/public-api';
+import {BehaviorSubject, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {StateProperties, TypeWithKey} from './public-api';
+import {checkIfConditionMet} from '../utils/public-api';
 
 export class GentlemanStateObject<T extends TypeWithKey<any>> {
   private state: T;
@@ -73,7 +73,9 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    */
   setObservableValues(value: T, property: string | null = null, emit = true): void {
     this.setStateValues(value, property);
-    if (emit) this.observableSubject.next(this.state);
+    if (emit) {
+      this.observableSubject.next(this.state);
+    }
   }
 
   /**
@@ -84,7 +86,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    */
   setStateValues(value: T, property: string | null): void {
     if (property && this.checkIfPropertyExists(this.state, property)) {
-      (<TypeWithKey<any>>this.state)[property] = value;
+      (this.state as TypeWithKey<any>)[property] = value;
     } else {
       this.state = {
         ...this.state,
@@ -98,17 +100,19 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @return void
    */
   resetState(): void {
-    (<TypeWithKey<any>>this.state) = {};
+    (this.state as TypeWithKey<any>) = {};
   }
 
   /**
    * @desc checks if the selected property exists inside the state
+   * @param state - the state of the entity
    * @param property - the selected property
    * @return any
    */
   private checkIfPropertyExists(state: T, property: string): any {
     const condition = () => {
-      return state[property];
+      const propertyValue = state[property];
+      return propertyValue || propertyValue === null;
     };
     return checkIfConditionMet(() => condition(), 'Selected property not found ! check if the key is correct and exists');
   }

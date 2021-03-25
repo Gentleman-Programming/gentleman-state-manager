@@ -36,17 +36,31 @@ that passes trough the different entities of your Angular application.
 
 ## How to use
 
-1- Create an object using the SourceOfTruthInitiate class provided by the library.
+1- Create an object using the SourceOfTruthInitiate class provided by the library. I recommend having a state.ts per module, representing the state interfaces and properties :
 ````
+state.ts for Root ( AppModule ): 
+
+export interface FirstState {
+   stateProperty: string | null;
+}
+
+export enum FirstStateProperties {
+   STATEPROPERTY: 'stateProperty'
+}
+
+export enum StoreKeys {
+   FIRSTSTATE: 'firstState'
+}
+
+AppModule:
+
 const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
     {
-        key: 'yourObservableKey',
+        key: StoreKeys.FIRSTSTATE,
         state: {
-            yourStateProperty: 'your property'
+            stateProperty: 'your state property value'
         },
-        stateProperties: {
-            YOURSTATEPROPERTY: 'yourStateProperty'
-        }
+        stateProperties: FirstStateProperties
     }
 ];
 ````
@@ -72,7 +86,7 @@ Example:
 ````
 export class OverviewMetricComponent implements OnDestroy {
      constructor(gentlemanStateManager: GentlemanStateService) {
-        console.log(gentlemanStateManager.getObservable('test').getStateSnapshot());
+        console.log(gentlemanStateManager.getObservable(StoreKeys.FIRSTSTATE).getPropertyFromState(FirstStateProperties.STATEPROPERTY));
     }
 }
 ````
@@ -81,15 +95,32 @@ export class OverviewMetricComponent implements OnDestroy {
 
 Example:
 ````
+state.ts for Root ( AppModule ): 
+
+...
+export enum StoreKeys {
+   FIRSTSTATE: 'firstState',
+   LAZYLOADEDSTATE: 'lazyLoadedState' // we add the new state key
+}
+...
+
+state.ts of your lazy loaded module:
+
+export interface LazyLoadedState {
+   lazyLoadedStateProperty: string | null;
+}
+
+export enum LazyLoadedStateProperties {
+   LAZYLOADEDSTATEPROPERTY: 'lazyLoadedStateProperty'
+}
+
 const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
     {
-        key: 'yourLazyLoadedObservableKey',
+        key: StoreKeys.LAZYLOADEDSTATE,
         state: {
-            yourLazyLoadedStateProperty: 'Your Lazy Loaded State Property'
+            lazyLoadedStateProperty: 'Your Lazy Loaded State Property'
         },
-        stateProperties: {
-            YOURLAZYLOADEDSTATEPROPERTY: 'yourLazyLoadedStateProperty'
-        }
+        stateProperties: LazyLoadedStateProperties
     }
 ];
 
