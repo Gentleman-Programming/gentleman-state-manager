@@ -85,7 +85,8 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @return void
    */
   setStateValues(value: T, property: string | null): void {
-    if (property && this.checkIfPropertyExists(this.state, property)) {
+    const exist = this.checkIfPropertyExists(this.state, property);
+    if (property && exist !== undefined) {
       (this.state as TypeWithKey<any>)[property] = value;
     } else {
       this.state = {
