@@ -254,7 +254,7 @@
             console.error(errorMessage);
             throw Error(errorMessage);
         }
-        return conditionMet;
+        return conditionMet.value;
     }
 
     var GentlemanStateObject = /** @class */ (function () {

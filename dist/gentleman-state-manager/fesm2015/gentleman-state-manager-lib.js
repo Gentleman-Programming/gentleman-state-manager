@@ -14,7 +14,7 @@ function checkIfConditionMet(condition, errorMessage) {
         console.error(errorMessage);
         throw Error(errorMessage);
     }
-    return conditionMet;
+    return conditionMet.value;
 }
 
 class GentlemanStateObject {

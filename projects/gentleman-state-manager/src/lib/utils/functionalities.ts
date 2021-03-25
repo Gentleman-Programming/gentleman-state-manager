@@ -13,5 +13,5 @@ export function checkIfConditionMet(condition: () => Condition, errorMessage: st
     console.error(errorMessage);
     throw Error(errorMessage);
   }
-  return conditionMet;
+  return conditionMet.value;
 }
