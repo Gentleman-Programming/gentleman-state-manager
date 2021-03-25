@@ -21,7 +21,7 @@ export class GentlemanStateService {
    * @param observableArrayItem: ObserverArrayItem | undefined
    * @return ObserverArrayItem
    */
-  static checkIfFound(observableArrayItem: ObserverArrayItem<any> | undefined): ObserverArrayItem<any> {
+  private static checkIfFound(observableArrayItem: ObserverArrayItem<any> | undefined): ObserverArrayItem<any> {
     const condition = () => {
       return observableArrayItem;
     };
@@ -32,6 +32,7 @@ export class GentlemanStateService {
    * @desc it creates and observable and adds it to the observable array.
    * @param key: the key to be used to represent the observable item inside the array
    * @param state: the state of the observable, the object that represents what the observable is going to contain
+   * @param stateProperties - the properties of the state
    * @return void
    */
   createObservable(key: string, state: any, stateProperties: StateProperties): void {

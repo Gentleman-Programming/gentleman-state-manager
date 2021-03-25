@@ -59,6 +59,7 @@ export declare class GentlemanStateObject<T extends TypeWithKey<any>> {
     resetState(): void;
     /**
      * @desc checks if the selected property exists inside the state
+     * @param state: the state of the observable, the object that represents what the observable is going to contain
      * @param property - the selected property
      * @return any
      */
