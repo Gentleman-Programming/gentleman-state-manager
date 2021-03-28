@@ -36,7 +36,9 @@ that passes trough the different entities of your Angular application.
 
 ## How to use
 
-1- Create an object using the SourceOfTruthInitiate class provided by the library. I recommend having a state.ts per module, representing the state interfaces and properties :
+1- ````npm i gentleman-state-manager````
+
+2- Create an object using the SourceOfTruthInitiate class provided by the library. I recommend having a state.ts per module, representing the state interfaces and properties :
 ````
 state.ts for Root ( AppModule ): 
 
@@ -68,7 +70,7 @@ const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
 * state: the empty state of the object that will pass trough the observable.
 * stateProperties: the properties of the object, we are going to use it to access the information without ambiguities.
 
-2- import GentlemanStateManagerModule inside your application in the following way:
+3- import GentlemanStateManagerModule inside your application in the following way:
 ````
 @NgModule({
     imports: [
@@ -80,7 +82,7 @@ const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
 export class AppModule {}
 ````
 
-3- use our apis to access the information or send something new !
+4- use our apis to access the information or send something new !
 
 Example:
 ````
@@ -91,7 +93,7 @@ export class OverviewMetricComponent implements OnDestroy {
 }
 ````
 
-4- to lazy load more observables just do the same functionality as in the app module, but in the constructor of your lazy loaded one.
+5- to lazy load more observables just do the same functionality as in the app module, but in the constructor of your lazy loaded one.
 
 Example:
 ````
