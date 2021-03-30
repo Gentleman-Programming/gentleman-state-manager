@@ -1,7 +1,7 @@
-import {BehaviorSubject, Observable} from 'rxjs';
-import {map} from 'rxjs/operators';
-import {StateProperties, TypeWithKey} from './public-api';
-import {checkIfConditionMet} from '../utils/public-api';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { checkIfConditionMet } from '../utils/public-api';
+import { StateProperties, TypeWithKey } from './public-api';
 
 export class GentlemanStateObject<T extends TypeWithKey<any>> {
   private state: T;
@@ -61,7 +61,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @return Observable
    */
   getPropertyFromObservable(property: string): Observable<any> {
-    return this.getObservable().pipe(map(s => this.checkIfPropertyExists(s, property)));
+    return this.getObservable().pipe(map((s) => this.checkIfPropertyExists(s, property)));
   }
 
   /**
@@ -85,13 +85,12 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @return void
    */
   setStateValues(value: T, property: string | null): void {
-    const exist = this.checkIfPropertyExists(this.state, property);
-    if (property && exist !== undefined) {
+    if (property && this.checkIfPropertyExists(this.state, property) !== undefined) {
       (this.state as TypeWithKey<any>)[property] = value;
     } else {
       this.state = {
         ...this.state,
-        ...value
+        ...value,
       };
     }
   }
@@ -112,7 +111,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    */
   private checkIfPropertyExists(state: T, property: string): any {
     const condition = () => {
-      return {met: state.hasOwnProperty(property), value: state[property]};
+      return { met: state.hasOwnProperty(property), value: state[property] };
     };
     return checkIfConditionMet(() => condition(), 'Selected property not found ! check if the key is correct and exists');
   }

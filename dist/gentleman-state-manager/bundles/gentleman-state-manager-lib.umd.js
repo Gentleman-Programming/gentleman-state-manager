@@ -331,8 +331,7 @@
          * @return void
          */
         GentlemanStateObject.prototype.setStateValues = function (value, property) {
-            var exist = this.checkIfPropertyExists(this.state, property);
-            if (property && exist !== undefined) {
+            if (property && this.checkIfPropertyExists(this.state, property) !== undefined) {
                 this.state[property] = value;
             }
             else {

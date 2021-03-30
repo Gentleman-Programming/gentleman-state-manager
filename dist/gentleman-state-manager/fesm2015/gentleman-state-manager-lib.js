@@ -67,7 +67,7 @@ class GentlemanStateObject {
      * @return Observable
      */
     getPropertyFromObservable(property) {
-        return this.getObservable().pipe(map(s => this.checkIfPropertyExists(s, property)));
+        return this.getObservable().pipe(map((s) => this.checkIfPropertyExists(s, property)));
     }
     /**
      * @desc sets the value for a certain property inside the state, triggers an async event
@@ -89,8 +89,7 @@ class GentlemanStateObject {
      * @return void
      */
     setStateValues(value, property) {
-        const exist = this.checkIfPropertyExists(this.state, property);
-        if (property && exist !== undefined) {
+        if (property && this.checkIfPropertyExists(this.state, property) !== undefined) {
             this.state[property] = value;
         }
         else {
