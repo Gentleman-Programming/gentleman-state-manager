@@ -36,7 +36,7 @@ that passes trough the different entities of your Angular application.
 
 ## How to use
 
-1- ````npm i gentleman-state-manager````
+1- ````npm i gentleman-state-manager```` o ````yarn add gentleman-state-manager````
 
 2- Create an object using the SourceOfTruthInitiate class provided by the library. I recommend having a state.ts per module, representing the state interfaces and properties :
 ````
@@ -47,11 +47,11 @@ export interface FirstState {
 }
 
 export enum FirstStateProperties {
-   STATEPROPERTY: 'stateProperty'
+   STATEPROPERTY = 'stateProperty'
 }
 
 export enum StoreKeys {
-   FIRSTSTATE: 'firstState'
+   FIRSTSTATE = 'firstState'
 }
 
 AppModule:
@@ -101,8 +101,8 @@ state.ts for Root ( AppModule ):
 
 ...
 export enum StoreKeys {
-   FIRSTSTATE: 'firstState',
-   LAZYLOADEDSTATE: 'lazyLoadedState' // we add the new state key
+   FIRSTSTATE = 'firstState',
+   LAZYLOADEDSTATE = 'lazyLoadedState' // we add the new state key
 }
 ...
 
@@ -113,8 +113,10 @@ export interface LazyLoadedState {
 }
 
 export enum LazyLoadedStateProperties {
-   LAZYLOADEDSTATEPROPERTY: 'lazyLoadedStateProperty'
+   LAZYLOADEDSTATEPROPERTY = 'lazyLoadedStateProperty'
 }
+
+lazy loaded module: 
 
 const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
     {
