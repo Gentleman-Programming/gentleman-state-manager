@@ -86,7 +86,7 @@ Example:
 ````
 export class OverviewMetricComponent implements OnDestroy {
      constructor(gentlemanStateManager: GentlemanStateService) {
-        console.log(gentlemanStateManager.getObservable(StoreKeys.FIRSTSTATE).getPropertyFromState(FirstStateProperties.STATEPROPERTY));
+        console.log(gentlemanStateManager.getEntity(StoreKeys.FIRSTSTATE).getPropertyFromState(FirstStateProperties.STATEPROPERTY));
     }
 }
 ````
@@ -150,14 +150,14 @@ createObservable
   createObservable(key: string, state: any, stateProperties: StateProperties): void
 ```` 
 
-getObservable
+getEntity
 ```` 
 /**
 * @desc it returns the selected observable using the provided key.
 * @param key: the key to be used to represent the observable item inside the array
 * @return ObserverArrayItem
 */
-  getObservable(key: string): GentlemanStateObject<any>
+  getEntity(key: string): GentlemanStateObject<any>
 ```` 
 
 destroyObservable
