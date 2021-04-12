@@ -1,17 +1,17 @@
-import {Inject, Injectable} from '@angular/core';
-import {GentlemanStateObject, ObserverArrayItem, StateProperties} from '../models/public-api';
-import {SourceOfTruth, SourceOfTruthInitiate} from '../models/source-of-truth';
-import {checkIfConditionMet} from '../utils/public-api';
+import { Inject, Injectable } from "@angular/core";
+import { GentlemanStateObject, ObserverArrayItem, StateProperties } from "../models/public-api";
+import { SourceOfTruth, SourceOfTruthInitiate } from "../models/source-of-truth";
+import { checkIfConditionMet } from "../utils/public-api";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class GentlemanStateService {
   private observerArray: SourceOfTruth = [];
 
-  constructor(@Inject('sourceOfTruthKeys') sourceOfTruthKeys: SourceOfTruthInitiate[]) {
-    sourceOfTruthKeys.forEach(k => {
-      const {key, state, stateProperties} = k;
+  constructor(@Inject("sourceOfTruthKeys") sourceOfTruthKeys: SourceOfTruthInitiate[]) {
+    sourceOfTruthKeys.forEach((k) => {
+      const { key, state, stateProperties } = k;
       this.createObservable(key, state, stateProperties);
     });
   }
@@ -23,9 +23,9 @@ export class GentlemanStateService {
    */
   private static checkIfFound(observableArrayItem: ObserverArrayItem<any> | undefined): ObserverArrayItem<any> {
     const condition = () => {
-      return {met: !!observableArrayItem, value: observableArrayItem};
+      return { met: !!observableArrayItem, value: observableArrayItem };
     };
-    return checkIfConditionMet(() => condition(), 'Observable item not found ! check if the key is correct and exists');
+    return checkIfConditionMet(() => condition(), "Observable item not found ! check if the key is correct and exists");
   }
 
   /**
@@ -36,8 +36,13 @@ export class GentlemanStateService {
    * @return void
    */
   createObservable(key: string, state: any, stateProperties: StateProperties): void {
-    const observable = new GentlemanStateObject(state, stateProperties);
-    this.observerArray.push({key, observable});
+    const found = this.observerArray.find((elem) => elem.key === key);
+    if (found) {
+      console.log(`the key : ${key}, already exists as an entity so it will be ignored`)
+    } else {
+      const observable = new GentlemanStateObject(state, stateProperties);
+      this.observerArray.push({ key, observable });
+    }
   }
 
   /**
@@ -45,8 +50,8 @@ export class GentlemanStateService {
    * @param key - the key to be used to represent the observable item inside the array
    * @return ObserverArrayItem
    */
-  getObservable(key: string): GentlemanStateObject<any> {
-    const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find(obs => obs.key === key));
+  getEntity(key: string): GentlemanStateObject<any> {
+    const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find((obs) => obs.key === key));
     return observableArrayItem?.observable;
   }
 
@@ -57,7 +62,7 @@ export class GentlemanStateService {
    * @return void
    */
   emitValue(key: string, data: any): void {
-    const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find(obs => obs.key === key));
+    const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find((obs) => obs.key === key));
     observableArrayItem?.observable.setObservableValues(data);
   }
 
@@ -67,8 +72,8 @@ export class GentlemanStateService {
    * @return void
    */
   destroyObservable(key: string): void {
-    const selectedObservable = GentlemanStateService.checkIfFound(this.observerArray.find(obs => obs.key === key));
+    const selectedObservable = GentlemanStateService.checkIfFound(this.observerArray.find((obs) => obs.key === key));
     selectedObservable?.observable.unsubscribe();
-    this.observerArray = this.observerArray.filter(obs => obs.key !== key);
+    this.observerArray = this.observerArray.filter((obs) => obs.key !== key);
   }
 }

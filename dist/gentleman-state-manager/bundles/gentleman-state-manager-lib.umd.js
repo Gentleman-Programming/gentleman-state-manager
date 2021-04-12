@@ -369,7 +369,6 @@
                 _this.createObservable(key, state, stateProperties);
             });
         }
-        GentlemanStateService_1 = GentlemanStateService;
         /**
          * @desc it checks if the searched object exists, if not it throws an errors and stops the execution.
          * @param observableArrayItem - ObserverArrayItem | undefined
@@ -379,7 +378,7 @@
             var condition = function () {
                 return { met: !!observableArrayItem, value: observableArrayItem };
             };
-            return checkIfConditionMet(function () { return condition(); }, 'Observable item not found ! check if the key is correct and exists');
+            return checkIfConditionMet(function () { return condition(); }, "Observable item not found ! check if the key is correct and exists");
         };
         /**
          * @desc it creates and observable and adds it to the observable array.
@@ -389,16 +388,22 @@
          * @return void
          */
         GentlemanStateService.prototype.createObservable = function (key, state, stateProperties) {
-            var observable = new GentlemanStateObject(state, stateProperties);
-            this.observerArray.push({ key: key, observable: observable });
+            var found = this.observerArray.find(function (elem) { return elem.key === key; });
+            if (found) {
+                console.log("the key : " + key + ", already exists as an entity so it will be ignored");
+            }
+            else {
+                var observable = new GentlemanStateObject(state, stateProperties);
+                this.observerArray.push({ key: key, observable: observable });
+            }
         };
         /**
          * @desc it returns the selected observable using the provided key.
          * @param key - the key to be used to represent the observable item inside the array
          * @return ObserverArrayItem
          */
-        GentlemanStateService.prototype.getObservable = function (key) {
-            var observableArrayItem = GentlemanStateService_1.checkIfFound(this.observerArray.find(function (obs) { return obs.key === key; }));
+        GentlemanStateService.prototype.getEntity = function (key) {
+            var observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find(function (obs) { return obs.key === key; }));
             return observableArrayItem === null || observableArrayItem === void 0 ? void 0 : observableArrayItem.observable;
         };
         /**
@@ -408,7 +413,7 @@
          * @return void
          */
         GentlemanStateService.prototype.emitValue = function (key, data) {
-            var observableArrayItem = GentlemanStateService_1.checkIfFound(this.observerArray.find(function (obs) { return obs.key === key; }));
+            var observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find(function (obs) { return obs.key === key; }));
             observableArrayItem === null || observableArrayItem === void 0 ? void 0 : observableArrayItem.observable.setObservableValues(data);
         };
         /**
@@ -417,44 +422,45 @@
          * @return void
          */
         GentlemanStateService.prototype.destroyObservable = function (key) {
-            var selectedObservable = GentlemanStateService_1.checkIfFound(this.observerArray.find(function (obs) { return obs.key === key; }));
+            var selectedObservable = GentlemanStateService.checkIfFound(this.observerArray.find(function (obs) { return obs.key === key; }));
             selectedObservable === null || selectedObservable === void 0 ? void 0 : selectedObservable.observable.unsubscribe();
             this.observerArray = this.observerArray.filter(function (obs) { return obs.key !== key; });
         };
-        var GentlemanStateService_1;
-        GentlemanStateService.ctorParameters = function () { return [
-            { type: Array, decorators: [{ type: core.Inject, args: ['sourceOfTruthKeys',] }] }
-        ]; };
-        GentlemanStateService.ɵprov = core.ɵɵdefineInjectable({ factory: function GentlemanStateService_Factory() { return new GentlemanStateService(core.ɵɵinject("sourceOfTruthKeys")); }, token: GentlemanStateService, providedIn: "root" });
-        GentlemanStateService = GentlemanStateService_1 = __decorate([
-            core.Injectable({
-                providedIn: 'root'
-            }),
-            __param(0, core.Inject('sourceOfTruthKeys'))
-        ], GentlemanStateService);
+        GentlemanStateService.ɵfac = function GentlemanStateService_Factory(t) { return new (t || GentlemanStateService)(core.ɵɵinject("sourceOfTruthKeys")); };
+        GentlemanStateService.ɵprov = core.ɵɵdefineInjectable({ token: GentlemanStateService, factory: GentlemanStateService.ɵfac, providedIn: "root" });
         return GentlemanStateService;
     }());
+    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(GentlemanStateService, [{
+            type: core.Injectable,
+            args: [{
+                    providedIn: "root",
+                }]
+        }], function () { return [{ type: undefined, decorators: [{
+                    type: core.Inject,
+                    args: ["sourceOfTruthKeys"]
+                }] }]; }, null); })();
 
     var GentlemanStateManagerModule = /** @class */ (function () {
         function GentlemanStateManagerModule() {
         }
-        GentlemanStateManagerModule_1 = GentlemanStateManagerModule;
         GentlemanStateManagerModule.forRoot = function (sourceOfTruthKeys) {
             return {
-                ngModule: GentlemanStateManagerModule_1,
+                ngModule: GentlemanStateManagerModule,
                 providers: [GentlemanStateService, { provide: 'sourceOfTruthKeys', useValue: sourceOfTruthKeys }]
             };
         };
-        var GentlemanStateManagerModule_1;
-        GentlemanStateManagerModule = GentlemanStateManagerModule_1 = __decorate([
-            core.NgModule({
-                declarations: [],
-                imports: [],
-                exports: []
-            })
-        ], GentlemanStateManagerModule);
+        GentlemanStateManagerModule.ɵmod = core.ɵɵdefineNgModule({ type: GentlemanStateManagerModule });
+        GentlemanStateManagerModule.ɵinj = core.ɵɵdefineInjector({ factory: function GentlemanStateManagerModule_Factory(t) { return new (t || GentlemanStateManagerModule)(); }, imports: [[]] });
         return GentlemanStateManagerModule;
     }());
+    /*@__PURE__*/ (function () { core.ɵsetClassMetadata(GentlemanStateManagerModule, [{
+            type: core.NgModule,
+            args: [{
+                    declarations: [],
+                    imports: [],
+                    exports: []
+                }]
+        }], null, null); })();
 
     exports.GentlemanStateManagerModule = GentlemanStateManagerModule;
     exports.GentlemanStateObject = GentlemanStateObject;

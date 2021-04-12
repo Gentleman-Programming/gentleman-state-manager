@@ -1,5 +1,6 @@
-import { GentlemanStateObject, StateProperties } from '../models/public-api';
-import { SourceOfTruthInitiate } from '../models/source-of-truth';
+import { GentlemanStateObject, StateProperties } from "../models/public-api";
+import { SourceOfTruthInitiate } from "../models/source-of-truth";
+import * as i0 from "@angular/core";
 export declare class GentlemanStateService {
     private observerArray;
     constructor(sourceOfTruthKeys: SourceOfTruthInitiate[]);
@@ -22,7 +23,7 @@ export declare class GentlemanStateService {
      * @param key - the key to be used to represent the observable item inside the array
      * @return ObserverArrayItem
      */
-    getObservable(key: string): GentlemanStateObject<any>;
+    getEntity(key: string): GentlemanStateObject<any>;
     /**
      * @desc it emits a new value into the selected observable using the provided key.
      * @param key - the key to be used to represent the observable item inside the array
@@ -36,4 +37,6 @@ export declare class GentlemanStateService {
      * @return void
      */
     destroyObservable(key: string): void;
+    static ɵfac: i0.ɵɵFactoryDef<GentlemanStateService, never>;
+    static ɵprov: i0.ɵɵInjectableDef<GentlemanStateService>;
 }
