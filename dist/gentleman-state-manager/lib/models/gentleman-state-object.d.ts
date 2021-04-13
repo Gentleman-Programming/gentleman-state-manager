@@ -1,15 +1,15 @@
 import { BehaviorSubject, Observable } from 'rxjs';
-import { StateProperties, TypeWithKey } from './public-api';
-export declare class GentlemanStateObject<T extends TypeWithKey<any>> {
+import { StateProperties } from './public-api';
+export declare class GentlemanStateObject {
     private state;
     private stateProperties;
-    readonly observableSubject: BehaviorSubject<T>;
-    constructor(state: T, stateProperties: StateProperties);
+    readonly observableSubject: BehaviorSubject<any>;
+    constructor(state: any, stateProperties: StateProperties);
     /**
      * @desc returns the observable that contains the state for async operations - it listens for changes
      * @return Observable
      */
-    getObservable(): Observable<T>;
+    getObservable(): Observable<any>;
     /**
      * @desc returns the state properties object
      * @return StateProperties
@@ -24,7 +24,7 @@ export declare class GentlemanStateObject<T extends TypeWithKey<any>> {
      * @desc returns the value of the state at the time of the call
      * @return any
      */
-    getStateSnapshot(): T;
+    getStateSnapshot(): any;
     /**
      * @desc returns the value of a property of the state at the time of the call
      * @param property - the name of the requested property
@@ -44,14 +44,14 @@ export declare class GentlemanStateObject<T extends TypeWithKey<any>> {
      * @param emit - if true it will trigger an async event
      * @return void
      */
-    setObservableValues(value: T, property?: string | null, emit?: boolean): void;
+    setObservableValues(value: any, property?: string | null, emit?: boolean): void;
     /**
      * @desc sets the value for a certain property inside the state, doesn't triggers an async event
      * @param value - the value for the requested property
      * @param property - the name of the requested property, if no property it will try to patch the values into the state
      * @return void
      */
-    setStateValues(value: T, property: string | null): void;
+    setStateValues(value: any, property: string | null): void;
     /**
      * @desc resets the state
      * @return void

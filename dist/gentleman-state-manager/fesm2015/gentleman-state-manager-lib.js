@@ -118,20 +118,20 @@ class GentlemanStateObject {
 
 class GentlemanStateService {
     constructor(sourceOfTruthKeys) {
-        this.observerArray = [];
+        this.observerArray = new Map();
         sourceOfTruthKeys.forEach((k) => {
-            const { key, state, stateProperties } = k;
-            this.createObservable(key, state, stateProperties);
+            const { state, stateProperties } = k;
+            this.createObservable(k.key, state, stateProperties);
         });
     }
     /**
      * @desc it checks if the searched object exists, if not it throws an errors and stops the execution.
-     * @param observableArrayItem - ObserverArrayItem | undefined
+     * @param gentlemanObject - GentlemanStateObject | undefined
      * @return ObserverArrayItem
      */
-    static checkIfFound(observableArrayItem) {
+    static checkIfFound(gentlemanObject) {
         const condition = () => {
-            return { met: !!observableArrayItem, value: observableArrayItem };
+            return { met: !!gentlemanObject, value: gentlemanObject };
         };
         return checkIfConditionMet(() => condition(), "Observable item not found ! check if the key is correct and exists");
     }
@@ -143,23 +143,23 @@ class GentlemanStateService {
      * @return void
      */
     createObservable(key, state, stateProperties) {
-        const found = this.observerArray.find((elem) => elem.key === key);
+        const found = this.observerArray.has(key);
         if (found) {
             console.log(`the key : ${key}, already exists as an entity so it will be ignored`);
         }
         else {
-            const observable = new GentlemanStateObject(state, stateProperties);
-            this.observerArray.push({ key, observable });
+            const gentlemanObject = new GentlemanStateObject(state, stateProperties);
+            this.observerArray.set(key, gentlemanObject);
         }
     }
     /**
      * @desc it returns the selected observable using the provided key.
      * @param key - the key to be used to represent the observable item inside the array
-     * @return ObserverArrayItem
+     * @return GentlemanStateObject
      */
     getEntity(key) {
-        const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find((obs) => obs.key === key));
-        return observableArrayItem === null || observableArrayItem === void 0 ? void 0 : observableArrayItem.observable;
+        const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.get(key));
+        return observableArrayItem;
     }
     /**
      * @desc it emits a new value into the selected observable using the provided key.
@@ -168,8 +168,8 @@ class GentlemanStateService {
      * @return void
      */
     emitValue(key, data) {
-        const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.find((obs) => obs.key === key));
-        observableArrayItem === null || observableArrayItem === void 0 ? void 0 : observableArrayItem.observable.setObservableValues(data);
+        const observableArrayItem = GentlemanStateService.checkIfFound(this.observerArray.get(key));
+        observableArrayItem.setObservableValues(data);
     }
     /**
      * @desc it destroys an object from the observable array.
@@ -177,9 +177,9 @@ class GentlemanStateService {
      * @return void
      */
     destroyObservable(key) {
-        const selectedObservable = GentlemanStateService.checkIfFound(this.observerArray.find((obs) => obs.key === key));
-        selectedObservable === null || selectedObservable === void 0 ? void 0 : selectedObservable.observable.unsubscribe();
-        this.observerArray = this.observerArray.filter((obs) => obs.key !== key);
+        const selectedObservable = GentlemanStateService.checkIfFound(this.observerArray.get(key));
+        selectedObservable.unsubscribe();
+        this.observerArray.delete(key);
     }
 }
 GentlemanStateService.ɵfac = function GentlemanStateService_Factory(t) { return new (t || GentlemanStateService)(ɵɵinject("sourceOfTruthKeys")); };

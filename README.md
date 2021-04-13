@@ -3,6 +3,7 @@
 This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 10.0.5.
 
 ## Description
+
 Hi everyone ! this is a super easy and comfortable way of using reactive programming to manage the state of your application.
 This library is based on Rxjs Behaviour Subject observables to manage the different states of your application using the concept of a single source of truth.
 
@@ -36,22 +37,21 @@ that passes trough the different entities of your Angular application.
 
 ## How to use
 
-1- ````npm i gentleman-state-manager```` o ````yarn add gentleman-state-manager````
+1- Create an object using the SourceOfTruthInitiate class provided by the library. I recommend having a state.ts per module, representing the state interfaces and properties :
 
-2- Create an object using the SourceOfTruthInitiate class provided by the library. I recommend having a state.ts per module, representing the state interfaces and properties :
-````
-state.ts for Root ( AppModule ): 
+```
+state.ts for Root ( AppModule ):
 
 export interface FirstState {
    stateProperty: string | null;
 }
 
 export enum FirstStateProperties {
-   STATEPROPERTY = 'stateProperty'
+   STATEPROPERTY: 'stateProperty'
 }
 
 export enum StoreKeys {
-   FIRSTSTATE = 'firstState'
+   FIRSTSTATE: 'firstState'
 }
 
 AppModule:
@@ -65,13 +65,15 @@ const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
         stateProperties: FirstStateProperties
     }
 ];
-````
-* key: represents the key to access the proper observable that we want to use.
-* state: the empty state of the object that will pass trough the observable.
-* stateProperties: the properties of the object, we are going to use it to access the information without ambiguities.
+```
 
-3- import GentlemanStateManagerModule inside your application in the following way:
-````
+- key: represents the key to access the proper observable that we want to use.
+- state: the empty state of the object that will pass trough the observable.
+- stateProperties: the properties of the object, we are going to use it to access the information without ambiguities.
+
+2- import GentlemanStateManagerModule inside your application in the following way:
+
+```
 @NgModule({
     imports: [
         ...
@@ -80,29 +82,31 @@ const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
     ]
 })
 export class AppModule {}
-````
+```
 
-4- use our apis to access the information or send something new !
+3- use our apis to access the information or send something new !
 
 Example:
-````
+
+```
 export class OverviewMetricComponent implements OnDestroy {
      constructor(gentlemanStateManager: GentlemanStateService) {
         console.log(gentlemanStateManager.getEntity(StoreKeys.FIRSTSTATE).getPropertyFromState(FirstStateProperties.STATEPROPERTY));
     }
 }
-````
+```
 
-5- to lazy load more observables just do the same functionality as in the app module, but in the constructor of your lazy loaded one.
+4- to lazy load more observables just do the same functionality as in the app module, but in the constructor of your lazy loaded one.
 
 Example:
-````
-state.ts for Root ( AppModule ): 
+
+```
+state.ts for Root ( AppModule ):
 
 ...
 export enum StoreKeys {
-   FIRSTSTATE = 'firstState',
-   LAZYLOADEDSTATE = 'lazyLoadedState' // we add the new state key
+   FIRSTSTATE: 'firstState',
+   LAZYLOADEDSTATE: 'lazyLoadedState' // we add the new state key
 }
 ...
 
@@ -113,10 +117,8 @@ export interface LazyLoadedState {
 }
 
 export enum LazyLoadedStateProperties {
-   LAZYLOADEDSTATEPROPERTY = 'lazyLoadedStateProperty'
+   LAZYLOADEDSTATEPROPERTY: 'lazyLoadedStateProperty'
 }
-
-lazy loaded module: 
 
 const sourceOfTruthInitiate: SourceOfTruthInitiate[] = [
     {
@@ -137,14 +139,15 @@ export class LazyLoadedModule {
   }
 }
 
-````
+```
 
 ## Api
 
 ### Array Of Observables Management :
 
 createObservable
-```` 
+
+```
 /**
 * @desc it creates and observable and adds it to the observable array.
 * @param key: the key to be used to represent the observable item inside the array
@@ -152,98 +155,108 @@ createObservable
 * @return void
 */
   createObservable(key: string, state: any, stateProperties: StateProperties): void
-```` 
+```
 
 getEntity
-```` 
+
+```
 /**
 * @desc it returns the selected observable using the provided key.
-* @param key: the key to be used to represent the observable item inside the array
-* @return ObserverArrayItem
+* @param key - the key to be used to represent the observable item inside the array
+* @return GentlemanStateObject
 */
-  getEntity(key: string): GentlemanStateObject<any>
-```` 
+  getEntity(key: string): GentlemanStateObject
+```
 
 destroyObservable
-```` 
+
+```
 /**
 * @desc it destroys an object from the observable array.
-* @param key: the key to be used to represent the observable item inside the array
+* @param key - the key to be used to represent the observable item inside the array
 * @return void
 */
   destroyObservable(key: string): void
-```` 
+```
 
 ### GentlemanStateObject :
 
 getObservable
-```` 
+
+```
 /**
 * @desc returns the observable that contains the state for async operations - it listens for changes
 * @return Observable
 */
-  getObservable(): Observable<T>
-````
+  getObservable(): Observable
+```
 
 getStateProperties
-```` 
+
+```
 /**
 * @desc returns the state properties object
 * @return StateProperties
 */
-  getStateProperties(): StateProperties 
-```` 
+  getStateProperties(): StateProperties
+```
 
 unsubscribe (use it when you are destroying the main component of your module)
-```` 
+
+```
 /**
 * @desc unsubscribes from the observable
 * @return void
 */
   unsubscribe(): void
-```` 
+```
 
 getStateSnapshot
-```` 
+
+```
 /**
 * @desc returns the value of the state at the time of the call
 * @return any
 */
-  getStateSnapshot(): T 
-```` 
+  getStateSnapshot(): any
+```
 
 getPropertyFromState
-```` 
+
+```
 /**
 * @desc returns the value of a property of the state at the time of the call
 * @param property - the name of the requested property
 * @return any
 */
   getPropertyFromState(property: string): any
-```` 
+```
 
 getPropertyFromState
-```` 
+
+```
 /**
 * @desc returns the value of a property of the state at the time of the call
 * @param property - the name of the requested property
 * @return any
 */
   getPropertyFromState(property: string): any
-```` 
+```
 
 getPropertyFromObservable
-```` 
+
+```
 /**
 * @desc returns the value of a property of the state for async operations - it listens for changes
 * @param property - the name of the requested property
 * @return Observable
 */
   getPropertyFromObservable(property: string): Observable<any>
-```` 
+```
 
 setObservableValues
-```` 
+
+```
 /**
 * @desc sets the value for a certain property inside the state, triggers an async event
 * @param value - the value for the requested property
@@ -251,25 +264,27 @@ setObservableValues
 * @param emit - if true it will trigger an async event
 * @return void
 */
-  setObservableValues(value: T, property: string | null = null, emit = true): void
-```` 
+  setObservableValues(value: any, property: string | null = null, emit = true): void
+```
 
 setStateValues
-```` 
+
+```
 /**
 * @desc sets the value for a certain property inside the state, doesn't triggers an async event
 * @param value - the value for the requested property
 * @param property - the name of the requested property, if no property it will try to patch the values into the state
 * @return void
 */
-  setStateValues(value: T, property: string | null): void
-```` 
+  setStateValues(value: any, property: string | null): void
+```
 
 resetState
-```` 
+
+```
 /**
 * @desc resets the state
 * @return void
 */
   resetState(): void
-```` 
+```

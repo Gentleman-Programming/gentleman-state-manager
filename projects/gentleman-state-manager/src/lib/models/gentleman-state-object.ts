@@ -3,12 +3,12 @@ import { map } from 'rxjs/operators';
 import { checkIfConditionMet } from '../utils/public-api';
 import { StateProperties, TypeWithKey } from './public-api';
 
-export class GentlemanStateObject<T extends TypeWithKey<any>> {
-  private state: T;
+export class GentlemanStateObject {
+  private state: any;
   private stateProperties: StateProperties = {};
-  readonly observableSubject: BehaviorSubject<T>;
+  readonly observableSubject: BehaviorSubject<any>;
 
-  constructor(state: T, stateProperties: StateProperties) {
+  constructor(state: any, stateProperties: StateProperties) {
     this.state = state;
     this.stateProperties = stateProperties;
     this.observableSubject = new BehaviorSubject(state);
@@ -18,7 +18,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @desc returns the observable that contains the state for async operations - it listens for changes
    * @return Observable
    */
-  getObservable(): Observable<T> {
+  getObservable(): Observable<any> {
     return this.observableSubject.asObservable();
   }
 
@@ -42,7 +42,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @desc returns the value of the state at the time of the call
    * @return any
    */
-  getStateSnapshot(): T {
+  getStateSnapshot(): any {
     return { ...this.state };
   }
 
@@ -71,7 +71,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @param emit - if true it will trigger an async event
    * @return void
    */
-  setObservableValues(value: T, property: string | null = null, emit = true): void {
+  setObservableValues(value: any, property: string | null = null, emit = true): void {
     this.setStateValues(value, property);
     if (emit) {
       this.observableSubject.next(this.state);
@@ -84,7 +84,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @param property - the name of the requested property, if no property it will try to patch the values into the state
    * @return void
    */
-  setStateValues(value: T, property: string | null): void {
+  setStateValues(value: any, property: string | null): void {
     if (property && this.checkIfPropertyExists(this.state, property) !== undefined) {
       (this.state as TypeWithKey<any>)[property] = value;
     } else {
@@ -109,7 +109,7 @@ export class GentlemanStateObject<T extends TypeWithKey<any>> {
    * @param property - the selected property
    * @return any
    */
-  private checkIfPropertyExists(state: T, property: string): any {
+  private checkIfPropertyExists(state: any, property: string): any {
     const condition = () => {
       return { met: state.hasOwnProperty(property), value: state[property] };
     };

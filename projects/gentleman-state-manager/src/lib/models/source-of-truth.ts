@@ -1,7 +1,7 @@
-import { ObserverArrayItem } from './observer-array';
-import { StateProperties } from './state';
+import { GentlemanStateObject } from "../models/public-api";
+import { StateProperties } from "./state";
 
-export type SourceOfTruth = ObserverArrayItem<any>[];
+export type SourceOfTruth = Map<string, GentlemanStateObject>;
 
 export interface SourceOfTruthInitiate {
   key: string;

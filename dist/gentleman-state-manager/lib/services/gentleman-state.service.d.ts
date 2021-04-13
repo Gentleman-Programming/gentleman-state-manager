@@ -6,7 +6,7 @@ export declare class GentlemanStateService {
     constructor(sourceOfTruthKeys: SourceOfTruthInitiate[]);
     /**
      * @desc it checks if the searched object exists, if not it throws an errors and stops the execution.
-     * @param observableArrayItem - ObserverArrayItem | undefined
+     * @param gentlemanObject - GentlemanStateObject | undefined
      * @return ObserverArrayItem
      */
     private static checkIfFound;
@@ -21,9 +21,9 @@ export declare class GentlemanStateService {
     /**
      * @desc it returns the selected observable using the provided key.
      * @param key - the key to be used to represent the observable item inside the array
-     * @return ObserverArrayItem
+     * @return GentlemanStateObject
      */
-    getEntity(key: string): GentlemanStateObject<any>;
+    getEntity(key: string): GentlemanStateObject;
     /**
      * @desc it emits a new value into the selected observable using the provided key.
      * @param key - the key to be used to represent the observable item inside the array
