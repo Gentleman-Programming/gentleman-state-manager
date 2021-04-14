@@ -186,9 +186,9 @@ getObservable
 ```
 /**
 * @desc returns the observable that contains the state for async operations - it listens for changes
-* @return Observable
+* @return Observable<any>
 */
-  getObservable(): Observable
+  getObservable(): Observable<any>
 ```
 
 getStateProperties
@@ -219,17 +219,6 @@ getStateSnapshot
 * @return any
 */
   getStateSnapshot(): any
-```
-
-getPropertyFromState
-
-```
-/**
-* @desc returns the value of a property of the state at the time of the call
-* @param property - the name of the requested property
-* @return any
-*/
-  getPropertyFromState(property: string): any
 ```
 
 getPropertyFromState
