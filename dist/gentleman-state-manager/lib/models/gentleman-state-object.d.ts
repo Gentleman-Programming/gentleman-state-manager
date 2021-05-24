@@ -65,3 +65,4 @@ export declare class GentlemanStateObject {
      */
     private checkIfPropertyExists;
 }
+//# sourceMappingURL=gentleman-state-object.d.ts.map

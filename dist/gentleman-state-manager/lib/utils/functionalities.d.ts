@@ -6,3 +6,4 @@ import { Condition } from '../models/utils';
  * @return any
  */
 export declare function checkIfConditionMet(condition: () => Condition, errorMessage: string): any;
+//# sourceMappingURL=functionalities.d.ts.map

@@ -1,24 +1,22 @@
 {
   "name": "gentleman-state-manager-lib",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "peerDependencies": {
-    "@angular/common": "^10.0.5",
-    "@angular/core": "^10.0.5"
+    "@angular/common": "~12.0.1",
+    "@angular/core": "~12.0.1"
   },
   "dependencies": {
-    "tslib": "^2.0.0",
-    "rxjs": "~6.6.3"
+    "rxjs": "~6.6.3",
+    "tslib": "^2.0.0"
   },
   "main": "bundles/gentleman-state-manager-lib.umd.js",
-  "module": "fesm5/gentleman-state-manager-lib.js",
+  "module": "fesm2015/gentleman-state-manager-lib.js",
   "es2015": "fesm2015/gentleman-state-manager-lib.js",
-  "esm5": "esm5/gentleman-state-manager-lib.js",
   "esm2015": "esm2015/gentleman-state-manager-lib.js",
-  "fesm5": "fesm5/gentleman-state-manager-lib.js",
   "fesm2015": "fesm2015/gentleman-state-manager-lib.js",
   "typings": "gentleman-state-manager-lib.d.ts",
   "sideEffects": false,
   "scripts": {
-    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy. This is not allowed.\\nPlease delete and rebuild the package, without compiling with Ivy, before attempting to publish.\\n')\" && exit 1"
+    "prepublishOnly": "node --eval \"console.error('ERROR: Trying to publish a package that has been compiled by Ivy in full compilation mode. This is not allowed.\\nPlease delete and rebuild the package with Ivy partial compilation mode, before attempting to publish.\\n')\" && exit 1"
   }
 }

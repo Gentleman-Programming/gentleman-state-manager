@@ -1,4 +1,5 @@
-import { ɵɵinject, ɵɵdefineInjectable, ɵsetClassMetadata, Injectable, Inject, ɵɵdefineNgModule, ɵɵdefineInjector, NgModule } from '@angular/core';
+import * as i0 from '@angular/core';
+import { Injectable, Inject, NgModule } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -127,7 +128,7 @@ class GentlemanStateService {
     /**
      * @desc it checks if the searched object exists, if not it throws an errors and stops the execution.
      * @param gentlemanObject - GentlemanStateObject | undefined
-     * @return ObserverArrayItem
+     * @return GentlemanStateObject
      */
     static checkIfFound(gentlemanObject) {
         const condition = () => {
@@ -182,9 +183,9 @@ class GentlemanStateService {
         this.observerArray.delete(key);
     }
 }
-GentlemanStateService.ɵfac = function GentlemanStateService_Factory(t) { return new (t || GentlemanStateService)(ɵɵinject("sourceOfTruthKeys")); };
-GentlemanStateService.ɵprov = ɵɵdefineInjectable({ token: GentlemanStateService, factory: GentlemanStateService.ɵfac, providedIn: "root" });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(GentlemanStateService, [{
+GentlemanStateService.ɵfac = function GentlemanStateService_Factory(t) { return new (t || GentlemanStateService)(i0.ɵɵinject("sourceOfTruthKeys")); };
+GentlemanStateService.ɵprov = /*@__PURE__*/ i0.ɵɵdefineInjectable({ token: GentlemanStateService, factory: GentlemanStateService.ɵfac, providedIn: "root" });
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(GentlemanStateService, [{
         type: Injectable,
         args: [{
                 providedIn: "root",
@@ -202,9 +203,10 @@ class GentlemanStateManagerModule {
         };
     }
 }
-GentlemanStateManagerModule.ɵmod = ɵɵdefineNgModule({ type: GentlemanStateManagerModule });
-GentlemanStateManagerModule.ɵinj = ɵɵdefineInjector({ factory: function GentlemanStateManagerModule_Factory(t) { return new (t || GentlemanStateManagerModule)(); }, imports: [[]] });
-/*@__PURE__*/ (function () { ɵsetClassMetadata(GentlemanStateManagerModule, [{
+GentlemanStateManagerModule.ɵfac = function GentlemanStateManagerModule_Factory(t) { return new (t || GentlemanStateManagerModule)(); };
+GentlemanStateManagerModule.ɵmod = /*@__PURE__*/ i0.ɵɵdefineNgModule({ type: GentlemanStateManagerModule });
+GentlemanStateManagerModule.ɵinj = /*@__PURE__*/ i0.ɵɵdefineInjector({ imports: [[]] });
+(function () { (typeof ngDevMode === "undefined" || ngDevMode) && i0.ɵsetClassMetadata(GentlemanStateManagerModule, [{
         type: NgModule,
         args: [{
                 declarations: [],

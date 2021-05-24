@@ -6,3 +6,4 @@ export interface SourceOfTruthInitiate {
     state: any;
     stateProperties: StateProperties;
 }
+//# sourceMappingURL=source-of-truth.d.ts.map

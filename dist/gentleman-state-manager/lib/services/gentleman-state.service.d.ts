@@ -7,7 +7,7 @@ export declare class GentlemanStateService {
     /**
      * @desc it checks if the searched object exists, if not it throws an errors and stops the execution.
      * @param gentlemanObject - GentlemanStateObject | undefined
-     * @return ObserverArrayItem
+     * @return GentlemanStateObject
      */
     private static checkIfFound;
     /**
@@ -37,6 +37,7 @@ export declare class GentlemanStateService {
      * @return void
      */
     destroyObservable(key: string): void;
-    static ɵfac: i0.ɵɵFactoryDef<GentlemanStateService, never>;
-    static ɵprov: i0.ɵɵInjectableDef<GentlemanStateService>;
+    static ɵfac: i0.ɵɵFactoryDeclaration<GentlemanStateService, never>;
+    static ɵprov: i0.ɵɵInjectableDeclaration<GentlemanStateService>;
 }
+//# sourceMappingURL=gentleman-state.service.d.ts.map
